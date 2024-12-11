@@ -1,0 +1,1 @@
+Este repositorio contiene ejemplos de código utilizados en la asignatura de Desarrollo Web en Entorno Servidor. Aquí encontrarás ejemplos prácticos que abarcan distintos conceptos y tecnologías que se utilizan para el desarrollo web del lado del servidor.
