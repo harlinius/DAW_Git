@@ -1,5 +1,0 @@
-AuthName "Contenido restringido"
-AuthType Basic
-AuthUserFile "C:/xampp/proyecto.pass"
-Require valid-user
-ErrorDocument 401 /401.html
