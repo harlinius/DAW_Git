@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $agenda = [];
         }
-        
         $nombre = trim($_POST['nombre']);
         $telefono = trim($_POST['telefono']);
         // uso trim para eliminar los espacios innecesarios por si el usuario mete alguno 
