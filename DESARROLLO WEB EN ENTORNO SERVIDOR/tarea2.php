@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // actualizo el numero de tfno
                     $_SESSION['agenda'][$nombre] = $telefono;
                     $color = "blue";
-                    $mensaje = "¿has actualizado el número de '$nombre'!";
+                    $mensaje = "¡has actualizado el número de '$nombre'!";
                 } else {
                     // elimino el contacto si no se indica tfno y se da nombre
                     unset($_SESSION['agenda'][$nombre]);
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (!empty($telefono)) { // si el nombre no existe y hay teléfono, añade el contacto a la agenda
                     $_SESSION['agenda'][$nombre] = $telefono;
                     $color = "green";
-                    $mensaje = "¡esta persona ya está agendada!";
+                    $mensaje = "¡has añadido a '$nombre'! :D";
                 } else { //si el nombre no existe y no hay teléfono da la advertencia
                     $color = "orange";
                     $mensaje = "¡debes poner un número de teléfono!";
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <!-- advertencia -->
         <?php if (!empty($mensaje)): ?>
-            <p style="color: <?php echo $color; ?>; font-weight: bold;"><?php echo $mensaje; ?></p>
+            <p style="color: <?php echo $color; ?>; font-weight: bold; text-align: center;"><?php echo $mensaje; ?></p>
         <?php endif; ?>
 
         <!-- agenda -->
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <legend style="text-align: center; color: purple; font-weight: bold"> ✩ tu agenda ✩</legend>
             <?php if (!empty($_SESSION['agenda'])): ?>
                 <?php foreach ($_SESSION['agenda'] as $nombre => $telefono): ?>
-                    <p ><b><a href="#"><?php echo htmlspecialchars($nombre); ?></a></b> <?php echo htmlspecialchars($telefono); ?></p>
+                    <p><b><a href="#"><?php echo htmlspecialchars($nombre); ?></a></b> <?php echo htmlspecialchars($telefono); ?></p>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p style="font-weight: bold;">no hay contactos en la agenda. :c</p>
@@ -112,9 +112,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- para vaciar la agenda, si hay contactos -->
         <?php if (!empty($_SESSION['agenda'])): ?>
             <fieldset>
-                <legend style="text-align: center;">Vaciar Agenda</legend>
+                <legend style="text-align: center; color: purple; font-weight: bold"> ☐ vaciar agenda ☐ </legend>
                 <form method="post" action="">
-                    <button type="submit" name="limpiar">Vaciar</button>
+                    <div style="text-align: center;">
+                        <button type="submit" style="color: purple;font-family: 'Montserrat', sans-serif; font-weight: bold" name="limpiar">¡borra la agenda!</button>
+                    </div>
                 </form>
             </fieldset>
         <?php endif; ?>
