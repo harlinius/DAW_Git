@@ -25,30 +25,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // valido si el nombre está vacío
         if (empty($nombre)) {
             $color = "orange";
-            $mensaje = "El nombre es obligatorio.";
+            $mensaje = "¡tienes que poner un nombre!";
         } else {
             // si el nombre ya existe
             if (isset($_SESSION['agenda'][$nombre])) {
                 if (!empty($telefono)) {
                     // actualizo el numero de tfno
                     $_SESSION['agenda'][$nombre] = $telefono;
-                    $color = "green";
-                    $mensaje = "El número de teléfono ha sido actualizado.";
+                    $color = "blue";
+                    $mensaje = "¿has actualizado el número de '$nombre'!";
                 } else {
                     // elimino el contacto si no se indica tfno y se da nombre
                     unset($_SESSION['agenda'][$nombre]);
                     $color = "red";
-                    $mensaje = "El contacto '$nombre' ha sido eliminado.";
+                    $mensaje = "tu contacto '$nombre' ya no está en tu agenda. bye bye!";
                 }
             } else {
 
                 if (!empty($telefono)) { // si el nombre no existe y hay teléfono, añade el contacto a la agenda
                     $_SESSION['agenda'][$nombre] = $telefono;
                     $color = "green";
-                    $mensaje = "El contacto ha sido añadido a la agenda.";
+                    $mensaje = "¡esta persona ya está agendada!";
                 } else { //si el nombre no existe y no hay teléfono da la advertencia
                     $color = "orange";
-                    $mensaje = "Debes proporcionar un número de teléfono.";
+                    $mensaje = "¡debes poner un número de teléfono!";
                 }
             }
         }
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <div style="width: 40%; height: 40%; margin: auto; font-family: 'Montserrat', sans-serif;">
-        <h1 style="text-align: center;">Agenda</h1>
+        <h1 style="text-align: center; color: purple">๋࣭ ⭑⚝ agenda de contactos</h1>
 
         <!-- Uso fieldset para agrupar los campos para que quede parecido al ejemplo del enunciado. legend es la etiqueta del texto que sobresale. -->
 
@@ -82,28 +82,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <!-- agenda -->
         <fieldset>
-            <legend style="text-align: center;">Datos Agenda</legend>
+            <legend style="text-align: center; color: purple; font-weight: bold"> ✩ tu agenda ✩</legend>
             <?php if (!empty($_SESSION['agenda'])): ?>
                 <?php foreach ($_SESSION['agenda'] as $nombre => $telefono): ?>
                     <p ><b><a href="#"><?php echo htmlspecialchars($nombre); ?></a></b> <?php echo htmlspecialchars($telefono); ?></p>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p>No hay contactos en la agenda.</p>
+                <p style="font-weight: bold;">no hay contactos en la agenda. :c</p>
             <?php endif; ?>
         </fieldset>
         <br>
         <!-- form para añadir/actualizar contactos -->
         <fieldset>
-            <legend style="text-align: center;">Nuevo Contacto</legend>
+            <legend style="text-align: center; color: purple; font-weight: bold"> ▻ nuevo contacto ◅</legend>
             <form method="post" action="">
-                <label><b>Nombre:</b></label>
+                <label><b>nombre:</b></label>
                 <input type="text" name="nombre" />
                 <br><br>
-                <label><b>Teléfono:</b></label>
+                <label><b>teléfono:</b></label>
                 <input type="number" name="telefono" />
                 <br><br>
-                <button type="submit">Añadir Contacto</button>
-                <button type="reset">Limpiar Campos</button>
+                <div style="text-align: center;">
+                    <button type="submit" style="color: purple;font-family: 'Montserrat', sans-serif; font-weight: bold">¡añadelo!</button>
+                    <button type="reset" style="color: purple;font-family: 'Montserrat', sans-serif; font-weight: bold">reset</button>
+                </div>
             </form>
         </fieldset>
         <br>
