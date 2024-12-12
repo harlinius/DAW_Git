@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div style="width: 40%; height: 40%; margin: auto; font-family: 'Montserrat', sans-serif;">
         <h1 style="text-align: center; color: purple">๋࣭ ⭑⚝ agenda de contactos</h1>
 
-        <!-- uso fieldset para agrupar los campos para que quede parecido al ejemplo del enunciado. legend es la etiqueta del texto que sobresale. -->
+        <!-- Uso fieldset para agrupar los campos para que quede parecido al ejemplo del enunciado. legend es la etiqueta del texto que sobresale. -->
 
         <!-- advertencia -->
         <?php if (!empty($mensaje)): ?>
@@ -91,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
         </fieldset>
         <br>
-
         <!-- form para añadir/actualizar contactos -->
         <fieldset>
             <legend style="text-align: center; color: purple; font-weight: bold"> ▻ nuevo contacto ◅</legend>
