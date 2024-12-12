@@ -9,6 +9,9 @@ if (!isset($_SESSION['agenda'])) {
 // inicializo la advertencia
 $mensaje = "";
 
+//el color de la advertencia cambia dependiendo del tipo del mensaje
+$color = "";
+
 // se procesa el formulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Verificar si se intenta vaciar la agenda
@@ -21,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // valido si el nombre está vacío
         if (empty($nombre)) {
+            $color = "orange";
             $mensaje = "El nombre es obligatorio.";
         } else {
             // si el nombre ya existe
@@ -28,18 +32,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (!empty($telefono)) {
                     // actualizo el numero de tfno
                     $_SESSION['agenda'][$nombre] = $telefono;
+                    $color = "green";
                     $mensaje = "El número de teléfono ha sido actualizado.";
                 } else {
                     // elimino el contacto si no se indica tfno y se da nombre
                     unset($_SESSION['agenda'][$nombre]);
+                    $color = "red";
                     $mensaje = "El contacto '$nombre' ha sido eliminado.";
                 }
             } else {
 
                 if (!empty($telefono)) { // si el nombre no existe y hay teléfono, añade el contacto a la agenda
                     $_SESSION['agenda'][$nombre] = $telefono;
+                    $color = "green";
                     $mensaje = "El contacto ha sido añadido a la agenda.";
                 } else { //si el nombre no existe y no hay teléfono da la advertencia
+                    $color = "orange";
                     $mensaje = "Debes proporcionar un número de teléfono.";
                 }
             }
@@ -69,28 +77,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <!-- advertencia -->
         <?php if (!empty($mensaje)): ?>
-            <p style="color: red; font-weight: bold;"><?php echo $mensaje; ?></p>
+            <p style="color: <?php echo $color; ?>; font-weight: bold;"><?php echo $mensaje; ?></p>
         <?php endif; ?>
 
         <!-- agenda -->
         <fieldset>
-            <legend>Datos Agenda</legend>
+            <legend style="text-align: center;">Datos Agenda</legend>
             <?php if (!empty($_SESSION['agenda'])): ?>
                 <?php foreach ($_SESSION['agenda'] as $nombre => $telefono): ?>
-                    <p><b><a href="#"><?php echo htmlspecialchars($nombre); ?></a></b> <?php echo htmlspecialchars($telefono); ?></p>
+                    <p ><b><a href="#"><?php echo htmlspecialchars($nombre); ?></a></b> <?php echo htmlspecialchars($telefono); ?></p>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>No hay contactos en la agenda.</p>
             <?php endif; ?>
         </fieldset>
-
+        <br>
         <!-- form para añadir/actualizar contactos -->
         <fieldset>
-            <legend>Nuevo Contacto</legend>
+            <legend style="text-align: center;">Nuevo Contacto</legend>
             <form method="post" action="">
                 <label><b>Nombre:</b></label>
                 <input type="text" name="nombre" />
-                <br>
+                <br><br>
                 <label><b>Teléfono:</b></label>
                 <input type="number" name="telefono" />
                 <br><br>
@@ -98,11 +106,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <button type="reset">Limpiar Campos</button>
             </form>
         </fieldset>
-
+        <br>
         <!-- para vaciar la agenda, si hay contactos -->
         <?php if (!empty($_SESSION['agenda'])): ?>
             <fieldset>
-                <legend>Vaciar Agenda</legend>
+                <legend style="text-align: center;">Vaciar Agenda</legend>
                 <form method="post" action="">
                     <button type="submit" name="limpiar">Vaciar</button>
                 </form>
